@@ -7,9 +7,9 @@ import { Avatar } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import popup from './PopupManager';
+import { REACT_APP_GOOGLE_CLIENT_ID } from './assets/_index';
 
 
-const REACT_APP_GOOGLE_CLIENT_ID = '330512410932-7numnfk3bq3e17sg4b27k6o2md43mpp9.apps.googleusercontent.com';
 
 function App() {
   const [history, setHistory] = useState([]);
