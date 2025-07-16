@@ -19,7 +19,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 470,
+  width: 500,
   bgcolor: 'var(--background-color)',
   border: '2px solid black',
   boxShadow: 24,
@@ -229,7 +229,7 @@ useEffect(() => {
 
 
 const handlePredictBatch = () => {
-  if(credits < 1){
+  if(credits < today.length){
     setOpen(true)
     return;
   }
@@ -389,6 +389,7 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
           email: user.email,
           name: user.name,
           credits: credits,
+          used: today.length,
         })
       });
 
@@ -434,11 +435,14 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
           <Box sx={style}>
             <h4 className='fw-bold mb-3'>Purchase Credits</h4>
             <p className='small'>Please purchase credit tokens to proceed with predictions!</p>
-            <form className=''>
+            <form className='' onSubmit={(e)=> {
+              e.preventDefault();
+              alert('Processing payment!')
+            }}>
               <div className='small' style={{color: ''}}>Enter you phone number</div>
-              <input type="text" value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^0-9.]/g, '') )} className='form-control mb-2 mt-2' />
-              <div className='small mt-3' style={{color: ''}}>Credits</div>
-              <input type="text" value={buy} onChange={(e) => setBuy(e.target.value.replace(/[^0-9.]/g, '').replace(/^0+(?!\.)/, '') )} className='form-control mb-2 mt-2' />
+              <input type="text" required value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^0-9.]/g, '') )} className='form-control mb-2 mt-3' />
+              <div className='small mt-3' style={{color: ''}}>Credits (minimum 15)</div>
+              <input type="number" min={15} value={buy} onChange={(e) => setBuy(e.target.value.replace(/[^0-9.]/g, '').replace(/^0+(?!\.)/, '') )} className='form-control mb-2 mt-3' />
               <input type='submit' value={'Pay '+ (buy*3) +' ksh.'} className='form-control mt-4 small' style={{backgroundColor: 'var(--primary-color)'}}/>
             </form>
           </Box>
@@ -519,8 +523,8 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
     <div className='heroSection my-4 d-flex flex-column justify-content-center align-items-center text-center gap-2'>
       <button className='btn btnLight small px-4 rounded-pill border-0 outline-0'>Simplify Your Betting Experience</button>
       <h1>Enhance your prediction <br /> control with Blexy</h1>
-      <p className='text-light small'>
-        Streamline your betting experience with our intuitive platform that empowers you to make informed decisions. Blexy helps you predict Betika Midweek Jackpot Accurately.<br/> You can also use it to predict other jackpot games!
+      <p className='text-light small' style={{lineHeight: 2}}>
+        Streamline your betting experience with our intuitive platform that empowers you to make informed decisions. Blexy helps you predict Betika Midweek Jackpot Accurately. You can also use it to predict other jackpot games!
       </p>
       <button className='btn small p-2 px-5 rounded-pill border-0 outline-0 bg-black text-light'>Get started &nbsp;&nbsp;&nbsp; <i className="bi bi-arrow-right"></i></button>
     </div>
@@ -568,8 +572,8 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
   </div>
 
     <div className='d-flex justify-content-center align-items-center gap-3 mt-4 mb-5'>
-      <button className={`btn small ${mode === 'History' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('History')}>History ({history.length} items)</button>
-      <button className={`btn small ${mode === 'Today' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Today')}>Today’s Predictions</button>
+      <button className={`btn small ${mode === 'History' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('History')}>Past Games ({history.length} items)</button>
+      <button className={`btn small ${mode === 'Today' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Today')}>Upcoming Predictions</button>
     </div>
 
     <div className='container mb-4 bg-black text-light p-5 betsContainer'>
@@ -715,7 +719,7 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
           }
         </div>
 
-          { predictions && 
+          { user && predictions && 
             <div className='history position-relative overflow-x-auto'>
               <br />
               <br />

@@ -14,6 +14,7 @@
   --text-color: rgb(23, 23, 23);
   --light-text: gray;
   --background-color: white;
+  --bg-black-color: rgb(53, 53, 53);
 }
 
 [data-theme='dark'] {
@@ -22,6 +23,7 @@
   --text-color: white;
   --light-text: gray;
   --background-color: #171717;
+  --bg-black-color: black;
 }
 .stats {
   div {
@@ -35,6 +37,9 @@
   small {
     color: var(--light-text);
   }
+}
+.bg-black {
+  background-color: var(--bg-black-color) !important;
 }
 .payment {
   h4{
