@@ -37,6 +37,14 @@ function App() {
 
 const [today, setToday] = useState([
   {
+    date_to_play: '2025-07-13T00:00:00.000Z',
+    home_team: 'Wisla Plock',
+    away_team: 'Korona Kielce',
+    home_odds: 2.39,
+    draw_odds: 3.25,
+    away_odds: 2.70,
+  },
+  {
     date_to_play: '2025-07-19T19:30:00.000Z',
     home_team: 'Espanola',
     away_team: 'Union La Calera',
@@ -56,9 +64,9 @@ const [today, setToday] = useState([
     date_to_play: '2025-07-19T22:30:00.000Z',
     home_team: 'Atletico Lanus',
     away_team: 'Ca Rosario Central',
-    home_odds: 2.33,
-    draw_odds: 2.80,
-    away_odds: 3.40,
+    home_odds: 2.45,
+    draw_odds: 2.75,
+    away_odds: 3.20,
   },
   {
     date_to_play: '2025-07-20T00:45:00.000Z',
@@ -72,17 +80,17 @@ const [today, setToday] = useState([
     date_to_play: '2025-07-20T00:45:00.000Z',
     home_team: 'Cd Godoy Cruz',
     away_team: 'Ca Sarmiento Junin',
-    home_odds: 1.89,
+    home_odds: 1.92,
     draw_odds: 3.10,
-    away_odds: 4.40,
+    away_odds: 4.20,
   },
   {
     date_to_play: '2025-07-20T03:00:00.000Z',
     home_team: 'Instituto Ac Cordoba',
     away_team: 'Ca River Plate (Arg)',
     home_odds: 3.70,
-    draw_odds: 3.10,
-    away_odds: 2.06,
+    draw_odds: 3.05,
+    away_odds: 2.07,
   },
   {
     date_to_play: '2025-07-20T15:00:00.000Z',
@@ -112,8 +120,8 @@ const [today, setToday] = useState([
     date_to_play: '2025-07-20T19:30:00.000Z',
     home_team: 'Audax Italiano',
     away_team: 'U. Catolica',
-    home_odds: 2.65,
-    draw_odds: 3.05,
+    home_odds: 2.60,
+    draw_odds: 3.00,
     away_odds: 2.60,
   },
   {
@@ -128,9 +136,9 @@ const [today, setToday] = useState([
     date_to_play: '2025-07-20T21:00:00.000Z',
     home_team: 'Pumas Unam',
     away_team: 'Cf Pachuca',
-    home_odds: 2.80,
+    home_odds: 2.90,
     draw_odds: 3.35,
-    away_odds: 2.42,
+    away_odds: 2.36,
   },
   {
     date_to_play: '2025-07-20T21:15:00.000Z',
@@ -139,14 +147,6 @@ const [today, setToday] = useState([
     home_odds: 3.05,
     draw_odds: 3.30,
     away_odds: 2.22,
-  },
-  {
-    date_to_play: '2025-07-13T00:00:00.000Z',
-    home_team: 'Wisla Plock',
-    away_team: 'Korona Kielce',
-    home_odds: 2.50,
-    draw_odds: 3.20,
-    away_odds: 2.70,
   },
   {
     date_to_play: '2025-07-20T20:30:00.000Z',
