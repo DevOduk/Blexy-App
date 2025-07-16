@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
@@ -182,6 +182,32 @@ const [today, setToday] = useState([
       draw_odds: Number(''),
       away_odds: Number(''),
   });
+
+
+
+  
+  const profileRef = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setShowProfile(false);
+      }
+    }
+
+    if (showProfile) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    // Cleanup when component unmounts or showProfile changes
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showProfile]);
+
+
 
     const handleNewHistory = () => {
       if (newHistory.date_played && newHistory.home_team && newHistory.away_team && newHistory.home_odds && newHistory.draw_odds && newHistory.away_odds) {
@@ -458,7 +484,7 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
           <div role='button' className='userProfile d-flex align-items-center gap-3' onClick={() => setShowProfile(!showProfile)}>
             { user ? <Avatar src={user?.picture} alt={user.given_name} /> : <i className="bi bi-person"></i> }
             <small className='small'>{user ? user.given_name : 'Login'}</small>
-            { showProfile && <div className='border small rounded-4 p-3 w-100 profile' style={{ position: 'absolute', right: '0', top: '50px', minWidth: '300px', width: '100%',  zIndex: '1000', fontSize: '0.875rem' }}>
+            { showProfile && <div ref={profileRef} className='border small rounded-4 p-3 w-100 profile' style={{ position: 'absolute', right: '0', top: '50px', minWidth: '300px', width: '100%',  zIndex: '1000', fontSize: '0.875rem' }}>
               { user ? <>
               <div className='mb-3 mt-2'>
                 <div className='mb-1'>Hello {user.given_name},</div>
