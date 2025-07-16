@@ -3,17 +3,38 @@ import './App.css'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import { Avatar } from '@mui/material';
+import { Avatar, useRadioGroup } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import popup from './PopupManager';
 import { REACT_APP_GOOGLE_CLIENT_ID } from './assets/_index';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 470,
+  bgcolor: 'var(--background-color)',
+  border: '2px solid black',
+  boxShadow: 24,
+  borderRadius: 4,
+  p: 4,
+};
+
 
 
 
 function App() {
   const [history, setHistory] = useState([]);
-  const [predictions, setPredictions] = useState(null);
+  const [predictions, setPredictions] = useState(JSON.parse(localStorage.getItem('predictionHistory')) || null);
+  const [open, setOpen] = useState(false);
+
 const [today, setToday] = useState([
   {
     date_to_play: '2025-07-19T19:30:00.000Z',
@@ -143,6 +164,7 @@ const [today, setToday] = useState([
   const [showAddHistory, setShowAddHistory] = useState(false);
   const [showAddMatch, setShowAddMatch] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [credits, setCredits] = useState( localStorage.getItem('googleUser') ? JSON.parse(localStorage.getItem('googleUser')).credits : 0);
   const [ newHistory, setNewHistory ] = useState({
       date_played: '2025-01-01',
       home_team: '',
@@ -207,6 +229,11 @@ useEffect(() => {
 
 
 const handlePredictBatch = () => {
+  if(credits < 1){
+    setOpen(true)
+    return;
+  }
+
   setProcessing(true);
   // post matches to backend API https://carshare-mpesa.vercel.app/api/predict_batch
   fetch('https://carshare-mpesa.vercel.app/api/predict_batch', {
@@ -221,8 +248,15 @@ const handlePredictBatch = () => {
   .then(data => {
     if (data.status === 'success' && Array.isArray(data.predictions)) {
       setPredictions(data.predictions);
+      localStorage.setItem('predictionHistory', JSON.stringify(data.predictions))
       popup.success('Batch prediction completed successfully!');
       setProcessing(false);
+      setCredits(prev => {
+        const newCredits = prev - 1;
+        updateCredits(user, newCredits);
+        return newCredits;
+      });
+
     } else {
       setProcessing(false);
       popup.error('Unexpected response format from prediction API.');
@@ -283,7 +317,6 @@ useEffect(() => {
 
 const itemsPerPage = 15;
 const [currentPage, setCurrentPage] = useState(1);
-
 const indexOfLastItem = currentPage * itemsPerPage;
 const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 const currentItems = history.slice(indexOfFirstItem, indexOfLastItem);
@@ -310,6 +343,72 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
   //   }, 10000);
   // }, []);
 
+  const createUser = async (user) => {
+    try {
+      const response = await fetch('https://carshare-mpesa.vercel.app/api/add_blexy_user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: user.email,
+          name: user.name,
+        })
+      });
+
+      const data = await response.json();
+      console.log('data received login signin:', data);
+
+      if (data.status === 'Welcome back!') {
+        popup.info('Welcome back ' + user.given_name + '!');
+        setCredits(data.user.credits);
+        localStorage.setItem('googleUser', JSON.stringify({...user, credits: data.user.credits}));
+
+      } else if (data.status === 'Welcome to Blexy!') {
+        popup.info('Welcome to Blexy!');
+        setCredits(data.user.credits);
+        localStorage.setItem('googleUser', JSON.stringify({...user, credits: data.user.credits}));
+      } else {
+        // popup.error(`Error creating user: ${data.message}`);
+        console.error('Error creating user:', data.message);
+      }
+    } catch (error) {
+      console.error('Network error while creating user:', error);
+    }
+  }
+
+
+  const updateCredits = async (user, credits) => {
+    try {
+      const response = await fetch('https://carshare-mpesa.vercel.app/api/add_blexy_user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: user.email,
+          name: user.name,
+          credits: credits,
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.status === 'Welcome back!') {
+        setCredits(data.user.credits);
+        localStorage.setItem('googleUser', JSON.stringify({...user, credits: data.user.credits}));
+      } else {
+        // popup.error(`Error creating user: ${data.message}`);
+        // console.error('Error updating credits:', data.message);
+      }
+    } catch (error) {
+      // console.error('Network error while updating user credits:', error);
+    }
+  }
+
+  const [phone, setPhone] = useState('')
+  const [buy, setBuy] = useState(20)
+
   return (
     <GoogleOAuthProvider clientId={REACT_APP_GOOGLE_CLIENT_ID}>
       <Backdrop
@@ -318,16 +417,43 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
       >
         <CircularProgress color="inherit" />
       </Backdrop>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={() => setOpen(false)}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open} className='payment'>
+          <Box sx={style}>
+            <h4 className='fw-bold mb-3'>Purchase Credits</h4>
+            <p className='small'>Please purchase credit tokens to proceed with predictions!</p>
+            <form className=''>
+              <div className='small' style={{color: ''}}>Enter you phone number</div>
+              <input type="text" value={phone} onChange={(e) => setPhone(e.target.value.replace(/[^0-9.]/g, '') )} className='form-control mb-2 mt-2' />
+              <div className='small mt-3' style={{color: ''}}>Credits</div>
+              <input type="text" value={buy} onChange={(e) => setBuy(e.target.value.replace(/[^0-9.]/g, '').replace(/^0+(?!\.)/, '') )} className='form-control mb-2 mt-2' />
+              <input type='submit' value={'Pay '+ (buy*3) +' ksh.'} className='form-control mt-4 small' style={{backgroundColor: 'var(--primary-color)'}}/>
+            </form>
+          </Box>
+        </Fade>
+      </Modal>
     <nav className='Navigation'>
       <div className='navBar'>
         <a href="#" className='logo fs-4'>
           <i className="bi bi-lightbulb"></i>
           <span>Blexy</span>
         </a>
-        <div className='d-flex justify-content-center align-items-center gap-3 fs-5 position-relative'>
+        <div className='d-flex justify-content-center align-items-center gap-2 fs-5 position-relative'>
           <div role='button' className='userProfile d-flex align-items-center gap-3' onClick={() => setShowProfile(!showProfile)}>
             { user ? <Avatar src={user?.picture} alt={user.given_name} /> : <i className="bi bi-person"></i> }
-            <span className='fs-6'>{user ? user.given_name : 'Login'}</span>
+            <small className='small'>{user ? user.given_name : 'Login'}</small>
             { showProfile && <div className='border small rounded-4 p-3 w-100 profile' style={{ position: 'absolute', right: '0', top: '50px', minWidth: '300px', width: '100%',  zIndex: '1000', fontSize: '0.875rem' }}>
               { user ? <>
               <div className='mb-3 mt-2'>
@@ -340,17 +466,19 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
                     <i className="bi bi-person fs-5"></i>
                     {user.given_name} {user.family_name}
                   </div>
-                  <div>Logout:</div>
-                  <div role='button' className='d-flex align-items-center gap-2 text-decoration-none' style={{color: 'blueviolet'}} onClick={() => {
+                  <div>Credits</div>
+                  <div className='d-flex align-items-center gap-2 text-decoration-none' style={{color: 'blueviolet'}}>
+                    <i className="bi bi-cash fs-5"></i>
+                    {credits} Credits
+                  </div>
+                  <button className='btn p-1 bg-danger small mt-2 rounded-pill border-0 outline-0 text-light d-flex justify-content-center align-items-center gap-2' onClick={()=> {
                     googleLogout();
                     setUser(null);
                     localStorage.removeItem('googleUser');
                     popup.success('You have been logged out successfully!');
                   }}>
                     <i className="bi bi-box-arrow-in-right fs-5"></i>
-                    <span className='ms-2'>Logout</span>
-                  </div>
-                  <button className='btn bg-danger small px-4 mt-2 rounded-pill border-0 outline-0 text-light' onClick={()=> {localStorage.removeItem('googleUser'); window.location.reload();}}>Delete Account</button>
+                    <span className='ms-2'>Logout</span></button>
                 </div>
               </>
               : <>
@@ -364,16 +492,13 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
                   onSuccess={(credentialResponse) => {
                     const user = jwtDecode(credentialResponse.credential);
                     setUser(user);
-                    localStorage.setItem('googleUser', JSON.stringify(user));
                     setShowProfile(false);
-                    popup.success('You have been logged in successfully!');
+                    createUser(user);
                   }}
                   onError={(error) => {
-                    // console.error(error);
                     popup.error('Login failed. Please try again.');
                   }}
                   auto_select={false}
-                  width={'100%'}
                   style={{ width: '100%' }}
                   className='w-100'
                 />
@@ -394,7 +519,7 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
     <div className='heroSection my-5 d-flex flex-column justify-content-center align-items-center text-center gap-2'>
       <button className='btn btnLight small px-4 rounded-pill border-0 outline-0'>Simplify Your Betting Experience</button>
       <h1>Enhance your prediction <br /> control with Blexy</h1>
-      <p>
+      <p className='text-light small'>
         Streamline your betting experience with our intuitive platform that empowers you to make informed decisions.
       </p>
       <button className='btn small p-2 px-5 rounded-pill border-0 outline-0 bg-black text-light'>Get started &nbsp;&nbsp;&nbsp; <i className="bi bi-arrow-right"></i></button>

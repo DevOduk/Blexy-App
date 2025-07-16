@@ -21,7 +21,25 @@
   --text-color: white;
   --background-color: #171717;
 }
-
+.payment {
+  h4{
+    color: var(--primary-color);
+  }
+  p {
+    color: var(--secondary-color);
+  }
+  font-family: Arial, Helvetica, sans-serif;
+  input, input:focus {
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+    outline: none !important;
+    box-shadow: none !important;
+    font-size: .85rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+  }
+}
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -33,6 +51,12 @@ body {
   background-position: top;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+.small {
+  font-size: 0.9rem;
+}
+#gsi_265796_503538, .qJTHM, .L5Fo6c-PQbLGe {
+  width: 100% !important;  
 }
 a {
   text-decoration: none;
@@ -72,7 +96,7 @@ nav i {
 }
 .divider {
   width: 1px;
-  height: 2rem;
+  height: 1.5rem;
   background-color: #ccc;
   margin: 0 1rem;
 }
