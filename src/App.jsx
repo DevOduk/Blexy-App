@@ -263,7 +263,7 @@ const handlePredictBatch = () => {
     }
   })
   .catch(error => {
-    popup.error('Error predicting batch. Please try again later.');
+    popup.error('We are experiency high traffic. Please try again later.');
     setProcessing(false);
   });
 };
@@ -516,16 +516,15 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
         </div>
       </div>
     </nav>
-    <div className='heroSection my-5 d-flex flex-column justify-content-center align-items-center text-center gap-2'>
+    <div className='heroSection my-4 d-flex flex-column justify-content-center align-items-center text-center gap-2'>
       <button className='btn btnLight small px-4 rounded-pill border-0 outline-0'>Simplify Your Betting Experience</button>
       <h1>Enhance your prediction <br /> control with Blexy</h1>
       <p className='text-light small'>
-        Streamline your betting experience with our intuitive platform that empowers you to make informed decisions.
+        Streamline your betting experience with our intuitive platform that empowers you to make informed decisions. Blexy helps you predict Betika Midweek Jackpot Accurately.<br/> You can also use it to predict other jackpot games!
       </p>
       <button className='btn small p-2 px-5 rounded-pill border-0 outline-0 bg-black text-light'>Get started &nbsp;&nbsp;&nbsp; <i className="bi bi-arrow-right"></i></button>
     </div>
-    <div className='w-50' style={{ margin: 'auto', textAlign: 'center' }}>
-{/* 
+  {/* <div className='w-50' style={{ margin: 'auto', textAlign: 'center' }}>
     <GoogleLogin
       onSuccess={(credentialResponse) => {
         const user = jwtDecode(credentialResponse.credential);
@@ -536,17 +535,47 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
         console.error(error);
       }}
       auto_select={true}
-    /> */}
+    />
+  </div> */}
+  <div className='py-3 mb-3'>
+    <h5 className='text-center'>The numbers that define our success</h5>
+  <div className='mt-4 mb-4 d-flex gap-3 container stats'>
+    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--background-color)', flex: 1}}>
+      <h3>
+        {/* <i className="bi bi-person rounded-2 p-1" style={{color: 'var(--primary-color)'}}></i>  */}
+        100+</h3>
+      <p>Satisfied Users</p>
+      <small className='small'>Over 100 registered individuals trust our predictions. Don'tbe left behind. Be among the best/wise betters now.</small>
     </div>
+    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--background-color)', flex: 1}}>
+      <h3>95%</h3>
+      <p>Fast-Track Results</p>
+      <small className='small'>
+        Our system delivers predictions in seconds, ensuring you get results quickly and efficiently for your betting needs.
+      </small>
+    </div>
+    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--background-color)', flex: 1}}>
+      <h3>{history.length + 1200}+</h3>
+      <p>Model Training Data</p>
+      <small className='small'>Our Model is trained with thousands of closely monitored and handpicked matches for highest quality prediction.</small>
+    </div>
+    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--background-color)', flex: 1}}>
+      <h3>100%</h3>
+      <p>High Efficiency/Accuracy</p>
+      <small className='small'>Accelerate your prediction accuracy with our prooven model using thousands of data & cutting-edge analytics.</small>
+    </div>
+  </div>
+  </div>
 
     <div className='d-flex justify-content-center align-items-center gap-3 mt-4 mb-5'>
       <button className={`btn small ${mode === 'History' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('History')}>History ({history.length} items)</button>
       <button className={`btn small ${mode === 'Today' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Today')}>Today’s Predictions</button>
     </div>
 
-    <div className='container bg-black text-light p-5 betsContainer'>
+    <div className='container mb-4 bg-black text-light p-5 betsContainer'>
       {mode === 'History' ? (
         <div className='history position-relative overflow-x-auto'>
+        <div className='w-100 p-2 overflow-x-auto'>
           <table className='w-100 bg-transparent text-light'>
             <thead className='fw-normal'>
               <tr>
@@ -579,20 +608,6 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
                 </tr>
               )
               }
-              
-                <tr>
-                  <td colSpan="8" className="text-center py-3 pageNext">
-                  {Array.from({ length: totalPages }, (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrentPage(i + 1)}
-                      className={currentPage === i + 1 ? 'active' : ''}
-                    >
-                      {i + 1}
-                    </button>
-                  ))}
-                  </td>
-                </tr>
 
               {
                 showAddHistory &&
@@ -625,8 +640,23 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
             </tbody>
           </table>
         </div>
+          
+        <div className="text-center py-3 pageNext">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={currentPage === i + 1 ? 'active' : ''}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+        </div>
       ) : (
-        <div className='today  position-relative overflow-x-auto'>
+      <div className='today  position-relative overflow-x-auto'>
+        <div className='mb-3 text-center fw-bolder text-success'><p>Upcomng Betika Jackpot Games (This weekend)</p></div>
+        <div className='w-100 p-2 overflow-x-auto'>
           <table className='w-100 bg-transparent text-light'>
             <thead className='fw-normal'>
               <tr>
@@ -669,72 +699,68 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
                   <td className='py-3 small'><input type="text" value={newMatch.away_odds} onChange={(e) => setNewMatch({ ...newMatch, away_odds: e.target.value.replace(/[^0-9.]/g, '').replace(/^0+(?!\.)/, '') })} className='form-control' placeholder='Away Odds' /></td>
                 </tr>
               }
-              
-                <tr>
-                  <td colSpan="7" className="text-center py-3 mb-2">
-                    {
-                      user ? 
-                      !showAddMatch ? <> 
-                      {/* <button style={{ minWidth: '30%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-primary btnLight' onClick={() => setShowAddMatch(true)}><i className="bi bi-plus-lg"></i> &nbsp; Add</button> */}
-                      { today.length > 0 && <button style={{ minWidth: '30%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-success' onClick={handlePredictBatch}><i className="bi bi-check-circle"></i> &nbsp; See Predictions</button>} </> : <><button style={{ minWidth: '25%' }} className='btn small p-2 rounded-pill outline-0 bg-black text-success border border-success' onClick={() => handleNewMatch()}><i className="bi bi-check2"></i> &nbsp; Save</button> <button style={{ minWidth: '25%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-danger' onClick={() => setShowAddMatch(false)}><i className="bi bi-x"></i> &nbsp; Cancel</button></>
-                      : 
-                      <span className='text-info'>Login to see prediction!</span>
+            </tbody>
+          </table>
+          
+        </div>
+
+        <div className="w-100 text-center py-3 mb-2 d-flex justify-content-center gap-2">
+          {
+            user ? 
+            !showAddMatch ? <> 
+            { today.length < 15 && <button style={{ minWidth: '30%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-primary btnLight' onClick={() => setShowAddMatch(true)}><i className="bi bi-plus-lg"></i> &nbsp; Add</button> }
+            { today.length > 0 && <button style={{ minWidth: '30%' }} className='btn small p-2 rounded-pill outline-0 bg-black text-success border-success border' onClick={handlePredictBatch}><i className="bi bi-check-circle"></i> &nbsp; See Predictions</button>} </> : <><button style={{ minWidth: '25%' }} className='btn small p-2 rounded-pill outline-0 bg-black text-success border border-success' onClick={() => handleNewMatch()}><i className="bi bi-check2"></i> &nbsp; Save</button> <button style={{ minWidth: '25%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-danger' onClick={() => setShowAddMatch(false)}><i className="bi bi-x"></i> &nbsp; Cancel</button></>
+            : 
+            <span className='text-info'>Login to see prediction!</span>
+          }
+        </div>
+
+          { predictions && 
+            <div className='history position-relative overflow-x-auto'>
+              <br />
+              <br />
+              <br />
+              <div className='mb-4 text-center fw-bolder text-success'><p>Prediction Results ({(new Date()).toLocaleString()})</p></div>
+              <div className='w-100 p-2 overflow-x-auto'>
+                <table className='w-100 bg-transparent text-light'>
+                  <thead className='fw-normal'>
+                    <tr>
+                      <th>No.</th>
+                      <th>Date To Play</th>
+                      <th>Home Team</th>
+                      <th>Away Team</th>
+                      <th>1 (Home)</th>
+                      <th>X (Draw)</th>
+                      <th>2 (Away)</th>
+                      <th>Prediction</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    { predictions.map((item, index) => (
+                      <tr key={index} className='text-light'>
+                        <td className='py-3 small'>{index+1}.</td>
+                        <td className='py-3 small'>{item.date_to_play}</td>
+                        <td className='py-3 small'>{item.home_team}</td>
+                        <td className='py-3 small'>{item.away_team}</td>
+                        <td className='py-3 small'>{item.home_odds}</td>
+                        <td className='py-3 small'>{item.draw_odds}</td>
+                        <td className='py-3 small'>{item.away_odds}</td>
+                        <td className='py-3 small fw-bold'>{item.prediction === 0 ? '1 (Home Win)' : item.prediction === 1 ? 'X (Draw)' : '2 (Away Win)'}</td>
+                      </tr>
+                    ))
                     }
-                  </td>
-                </tr>
-
-            </tbody>
-          </table>
-
-      { predictions && 
-        <div className='history position-relative overflow-x-auto'>
-          <br />
-          <br />
-          <br />
-          <div className='mb-5 text-center fw-bolder text-success'><p>Prediction Results ({(new Date()).toLocaleString()})</p></div>
-
-          <table className='w-100 bg-transparent text-light'>
-            <thead className='fw-normal'>
-              <tr>
-                <th>No.</th>
-                <th>Date To Play</th>
-                <th>Home Team</th>
-                <th>Away Team</th>
-                <th>1 (Home)</th>
-                <th>X (Draw)</th>
-                <th>2 (Away)</th>
-                <th>Prediction</th>
-              </tr>
-            </thead>
-            <tbody>
-              { predictions.map((item, index) => (
-                <tr key={index} className='text-light'>
-                  <td className='py-3 small'>{index+1}.</td>
-                  <td className='py-3 small'>{item.date_to_play}</td>
-                  <td className='py-3 small'>{item.home_team}</td>
-                  <td className='py-3 small'>{item.away_team}</td>
-                  <td className='py-3 small'>{item.home_odds}</td>
-                  <td className='py-3 small'>{item.draw_odds}</td>
-                  <td className='py-3 small'>{item.away_odds}</td>
-                  <td className='py-3 small fw-bold'>{item.prediction === 0 ? '1 (Home Win)' : item.prediction === 1 ? 'X (Draw)' : '2 (Away Win)'}</td>
-                </tr>
-              ))
-              }
-              
-            </tbody>
-          </table>
-        </div>
-      }
-        </div>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          }
+      </div>
       )}
     </div>
     
     <nav className='Navigation mt-4'>
       <div className='navBar'>
-        <a href="#" className='logo fs-4'>
-          <i className="bi bi-lightbulb"></i>
-          <span>Blexy</span>
-        </a>
         <small>
           © 2025 Blexy. All rights reserved.
         </small>
