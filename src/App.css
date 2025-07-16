@@ -26,6 +26,8 @@
   --bg-black-color: black;
 }
 .stats {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   div {
     box-shadow: 2px 2px 7px var(--secondary-color);
   }
@@ -229,5 +231,9 @@ nav i {
 .betsContainer {
   border-radius: 0;
   padding: 40px 10px !important;
+}
+
+.stats {
+  grid-template-columns: repeat(2, 1fr);
 }
 }

@@ -569,7 +569,7 @@ const totalPages = Math.ceil(history.length / itemsPerPage);
   </div> */}
   <div className='py-3 mb-3'>
     <h5 className='text-center'>The numbers that define our success</h5>
-  <div className='mt-4 mb-4 d-flex gap-3 container stats'>
+  <div className='mt-4 mb-4 d-grid container stats'>
     <div className='rounded-4 p-3' style={{backgroundColor: 'var(--background-color)', flex: 1}}>
       <h3>
         {/* <i className="bi bi-person rounded-2 p-1" style={{color: 'var(--primary-color)'}}></i>  */}
