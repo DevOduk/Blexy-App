@@ -236,4 +236,10 @@ nav i {
 .stats {
   grid-template-columns: repeat(2, 1fr);
 }
+
+.popup-enter, .popup-exit {
+  width: auto !important;
+  min-width: max-content !important;
+  max-width: 95% !important;
+}
 }
