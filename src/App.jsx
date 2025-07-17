@@ -37,7 +37,7 @@ function App() {
 
 const [today, setToday] = useState([
   {
-    date_to_play: '2025-07-13T00:00:00.000Z',
+    date_to_play: '2025-07-19T18:30:00.000Z',
     home_team: 'Wisla Plock',
     away_team: 'Korona Kielce',
     home_odds: 2.39,
