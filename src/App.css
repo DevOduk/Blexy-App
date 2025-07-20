@@ -14,6 +14,7 @@
   --text-color: rgb(23, 23, 23);
   --light-text: gray;
   --background-color: white;
+  --bg-light: #f8f9fa;
   --bg-black-color: rgb(53, 53, 53);
 }
 
@@ -23,22 +24,35 @@
   --text-color: white;
   --light-text: gray;
   --background-color: #171717;
-  --bg-black-color: black;
+  --bg-black-color: rgb(0, 23, 23);
+  --bg-light: rgb(0, 23, 23);
 }
 .stats {
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   div {
-    box-shadow: 2px 2px 7px var(--secondary-color);
+    border: none;
+    background-color: var(--bg-light);
   }
   h3 {
     color: var(--primary-color);
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
+  }
+  p {
+    margin-bottom: .5rem;
   }
   small {
-    color: var(--light-text);
-  }
+  color: var(--light-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: .8rem;
+}
+
 }
 .bg-black {
   background-color: var(--bg-black-color) !important;
@@ -135,7 +149,7 @@ nav i {
   }
 }
 .btn, .btn:hover {
-  color: var(--text-color);
+  color: var(--primary-color);
 }
   .btnLight {
     background-color: #D9D9D9 !important;
@@ -224,6 +238,7 @@ nav i {
 .popup-exit {
   animation: fadeUp 0.4s ease forwards;
 }
+
 @media (max-width: 900px) {
 .container {
   width: 100%;
@@ -235,6 +250,12 @@ nav i {
 
 .stats {
   grid-template-columns: repeat(2, 1fr);
+  padding: 20px;
+  gap: 1rem;
+  text-align: center;
+  div {
+    margin-bottom: 2rem;
+  }
 }
 
 .popup-enter, .popup-exit {
