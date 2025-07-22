@@ -762,7 +762,7 @@ const checkScore = (items) => {
   </div>
   </div>
 
-    <div className='d-flex justify-content-center align-items-center gap-3 mt-4 mb-5'>
+    <div className='d-flex justify-content-center align-items-center gap-2 flex-wrap mt-4 mb-5'>
       <button className={`btn small ${mode === 'Today' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Today')}>Upcoming Predictions</button>
       <button className={`btn small ${mode === 'Predictions' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Predictions')}>Past Predictions</button>
       <button className={`btn small ${mode === 'History' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('History')}>Past Games ({history.length} items)</button>
