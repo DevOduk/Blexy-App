@@ -887,7 +887,7 @@ const checkScore = (items) => {
                 </table>
               </div>
             </div> : (
-              <div className='mb-2 mt-2 text-center fw-bold text-danger'><p>Nothing here!</p></div>
+              <div className='mb-2 mt-2 text-center fw-semibold text-danger'><p>Nothing here!</p></div>
             )
           }
       </div>
