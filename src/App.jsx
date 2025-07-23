@@ -851,7 +851,7 @@ const checkScore = (items) => {
           }
       </div> ) : (
       <div className='predictions position-relative overflow-x-auto'>
-          { user && predictions ? 
+          { (user !== null && predictions !== null) ? 
             <div className='history position-relative overflow-x-auto'>
               <div className='mb-4 text-center fw-bolder text-success'><p>History - {predictions?.credits || 0} credits ({(new Date(predictions?.date || '07-25-2025')).toLocaleString()})</p></div>
               <div className='w-100 p-2 overflow-x-auto'>
@@ -887,7 +887,7 @@ const checkScore = (items) => {
                 </table>
               </div>
             </div> : (
-              <div className='mb-2 mt-2 text-center fw-bolder text-success'><p>Nothing here!</p></div>
+              <div className='mb-2 mt-2 text-center fw-bolder text-danger'><p>Nothing here!</p></div>
             )
           }
       </div>
