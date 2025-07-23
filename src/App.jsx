@@ -146,7 +146,7 @@ const [last_predictions, setLast_Predictions] = useState([
     draw_odds: 3.05,
     away_odds: 2.6,
     prediction: 0,
-    outcome: 1
+    outcome: 0
   },
   {
     date_to_play: "2025-07-20T20:30:00.000Z",
@@ -166,7 +166,7 @@ const [last_predictions, setLast_Predictions] = useState([
     draw_odds: 3.35,
     away_odds: 2.42,
     prediction: 0,
-    outcome: 2
+    outcome: 0
   },
   {
     date_to_play: "2025-07-20T21:15:00.000Z",
