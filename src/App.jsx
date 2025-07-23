@@ -609,7 +609,7 @@ const checkScore = (items) => {
       <p className='small' style={{lineHeight: 2}}>
         Streamline your betting experience with our intuitive platform that empowers you to make informed decisions. Blexy helps you predict Betika Midweek Jackpot Accurately. You can also use it to predict other jackpot games!
       </p>
-      <button className='btn small p-2 px-5 rounded-pill border-0 outline-0 bg-black text-light'>Get started &nbsp;&nbsp;&nbsp; <i className="bi bi-arrow-right"></i></button>
+      <button className='btn small p-2 px-5 rounded-pill border-0 outline-0 text-light' style={{backgroundColor: 'black'}}>Get started &nbsp;&nbsp;&nbsp; <i className="bi bi-arrow-right"></i></button>
     </div>
   {/* <div className='w-50' style={{ margin: 'auto', textAlign: 'center' }}>
     <GoogleLogin
