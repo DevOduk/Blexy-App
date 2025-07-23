@@ -62,7 +62,7 @@ def scrape_and_generate_js():
 
     # Write to a .js file
     with open("jackpot_games.js", "w", encoding="utf-8") as f:
-        f.write("export const today = [\n")
+        f.write("const today = [\n")
         for m in matches:
             f.write("  {\n")
             f.write(f"    date_to_play: '{m['date_to_play']}',\n")
@@ -73,6 +73,8 @@ def scrape_and_generate_js():
             f.write(f"    away_odds: {m['away_odds']},\n")
             f.write("  },\n")
         f.write("];\n")
+        f.write("\n")
+        f.write("export default today\n")
 
     print(f"✅ Jackpot data written to jackpot_games.js ({len(matches)} matches)")
 

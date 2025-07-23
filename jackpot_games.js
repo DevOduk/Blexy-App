@@ -91,8 +91,8 @@ const today = [
     date_to_play: '2025-07-27T20:15:00',
     home_team: 'St. Truidense Vv',
     away_team: 'Kaa Gent',
-    home_odds: 2.43,
-    draw_odds: 3.55,
+    home_odds: 2.46,
+    draw_odds: 3.5,
     away_odds: 2.8,
   },
   {
