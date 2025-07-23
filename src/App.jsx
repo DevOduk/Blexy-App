@@ -11,6 +11,7 @@ import { REACT_APP_GOOGLE_CLIENT_ID } from './assets/_index';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import today from '../jackpot_games'
 
 
 
@@ -35,128 +36,6 @@ function App() {
   const [predictions, setPredictions] = useState(JSON.parse(localStorage.getItem('predictionHistory')) || null);
   const [open, setOpen] = useState(false);
 
-const [today, setToday] = useState([
-  {
-    date_to_play: '2025-07-19T18:30:00.000Z',
-    home_team: 'Wisla Plock',
-    away_team: 'Korona Kielce',
-    home_odds: 2.39,
-    draw_odds: 3.25,
-    away_odds: 2.70,
-  },
-  {
-    date_to_play: '2025-07-19T19:30:00.000Z',
-    home_team: 'Espanola',
-    away_team: 'Union La Calera',
-    home_odds: 2.39,
-    draw_odds: 3.20,
-    away_odds: 2.80,
-  },
-  {
-    date_to_play: '2025-07-19T20:30:00.000Z',
-    home_team: 'Ca San Lorenzo Almagro',
-    away_team: 'Gimnasia Y Esgrima La Plata',
-    home_odds: 2.16,
-    draw_odds: 2.80,
-    away_odds: 3.85,
-  },
-  {
-    date_to_play: '2025-07-19T22:30:00.000Z',
-    home_team: 'Atletico Lanus',
-    away_team: 'Ca Rosario Central',
-    home_odds: 2.45,
-    draw_odds: 2.75,
-    away_odds: 3.20,
-  },
-  {
-    date_to_play: '2025-07-20T00:45:00.000Z',
-    home_team: 'Ca Platense',
-    away_team: 'Velez Sarsfield',
-    home_odds: 2.60,
-    draw_odds: 2.70,
-    away_odds: 3.10,
-  },
-  {
-    date_to_play: '2025-07-20T00:45:00.000Z',
-    home_team: 'Cd Godoy Cruz',
-    away_team: 'Ca Sarmiento Junin',
-    home_odds: 1.92,
-    draw_odds: 3.10,
-    away_odds: 4.20,
-  },
-  {
-    date_to_play: '2025-07-20T03:00:00.000Z',
-    home_team: 'Instituto Ac Cordoba',
-    away_team: 'Ca River Plate (Arg)',
-    home_odds: 3.70,
-    draw_odds: 3.05,
-    away_odds: 2.07,
-  },
-  {
-    date_to_play: '2025-07-20T15:00:00.000Z',
-    home_team: 'Vejle Bk',
-    away_team: 'Randers Fc',
-    home_odds: 3.45,
-    draw_odds: 3.45,
-    away_odds: 2.09,
-  },
-  {
-    date_to_play: '2025-07-20T17:00:00.000Z',
-    home_team: 'Sonderjyske',
-    away_team: 'Agf Aarhus',
-    home_odds: 3.45,
-    draw_odds: 3.55,
-    away_odds: 2.06,
-  },
-  {
-    date_to_play: '2025-07-20T19:30:00.000Z',
-    home_team: 'Union Saint-gilloise',
-    away_team: 'Club Brugge',
-    home_odds: 2.60,
-    draw_odds: 3.15,
-    away_odds: 2.70,
-  },
-  {
-    date_to_play: '2025-07-20T19:30:00.000Z',
-    home_team: 'Audax Italiano',
-    away_team: 'U. Catolica',
-    home_odds: 2.60,
-    draw_odds: 3.00,
-    away_odds: 2.60,
-  },
-  {
-    date_to_play: '2025-07-20T20:30:00.000Z',
-    home_team: 'Barracas Central',
-    away_team: 'Independiente Rivadavia',
-    home_odds: 2.47,
-    draw_odds: 2.95,
-    away_odds: 3.00,
-  },
-  {
-    date_to_play: '2025-07-20T21:00:00.000Z',
-    home_team: 'Pumas Unam',
-    away_team: 'Cf Pachuca',
-    home_odds: 2.90,
-    draw_odds: 3.35,
-    away_odds: 2.36,
-  },
-  {
-    date_to_play: '2025-07-20T21:15:00.000Z',
-    home_team: 'Rks Radomiak Radom',
-    away_team: 'Pogon Szczecin',
-    home_odds: 3.05,
-    draw_odds: 3.30,
-    away_odds: 2.22,
-  },
-  {
-    date_to_play: '2025-07-20T20:30:00.000Z',
-    home_team: 'Barracas Central',
-    away_team: 'Independiente Rivadavia',
-    home_odds: 2.47,
-    draw_odds: 2.95,
-    away_odds: 3.00,
-  },
-]);
 
 const [last_predictions, setLast_Predictions] = useState([
   {
@@ -312,7 +191,7 @@ const [last_predictions, setLast_Predictions] = useState([
 ]);
 
   const [user, setUser] = useState(null);
-  const [mode, setMode] = useState('History');
+  const [mode, setMode] = useState('Today');
   const [processing, setProcessing] = useState(false);
   const [showAddHistory, setShowAddHistory] = useState(false);
   const [showAddMatch, setShowAddMatch] = useState(false);
@@ -379,9 +258,10 @@ const [last_predictions, setLast_Predictions] = useState([
       }
     };
 
+
     const handleNewMatch = () => {
       if (newMatch.date_to_play && newMatch.home_team && newMatch.away_team && newMatch.home_odds && newMatch.draw_odds && newMatch.away_odds) {
-        setToday([...today, newMatch]);
+        // setToday([...today, newMatch]);
         setNewMatch({
           date_to_play: '',
           home_team: '',
@@ -425,10 +305,20 @@ const handlePredictBatch = () => {
   })
   .then(response => response.json())
   .then(data => {
+
     if (data.status === 'success' && Array.isArray(data.predictions)) {
-      setPredictions(data.predictions);
-      localStorage.setItem('predictionHistory', JSON.stringify(data.predictions))
+      setPredictions({
+        date: new Date(),
+        credits: today.length,
+        predictions: data.predictions
+      });
+      localStorage.setItem('predictionHistory', JSON.stringify({
+        date: new Date(),
+        credits: today.length,
+        predictions: data.predictions
+      }))
       popup.success('Batch prediction completed successfully!');
+      setMode('History')
       setProcessing(false);
       setCredits(prev => {
         const newCredits = prev - 1;
@@ -737,25 +627,25 @@ const checkScore = (items) => {
   <div className='py-3 mb-3'>
     <h5 className='text-center'>The numbers that define our success</h5>
   <div className='mt-4 mb-4 d-grid container stats'>
-    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
-      <h3>100+</h3>
+    <div className='rounded-4' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
+      <h3>97+</h3>
       <p>Satisfied Users</p>
       <small className='small'>Over 100 registered individuals trust our predictions. Don'tbe left behind. Be among the best/wise betters now.</small>
     </div>
-    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
-      <h3>95%</h3>
+    <div className='rounded-4' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
+      <h3>100%</h3>
       <p>Fast-Track Results</p>
       <small className='small'>
         Our system delivers predictions in seconds, ensuring you get results quickly and efficiently for your betting needs.
       </small>
     </div>
-    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
+    <div className='rounded-4' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
       <h3>{history.length + 1200}+</h3>
       <p>Model Training Data</p>
       <small className='small'>Our Model is trained with thousands of closely monitored and handpicked matches for highest quality prediction.</small>
     </div>
-    <div className='rounded-4 p-3' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
-      <h3>100%</h3>
+    <div className='rounded-4' style={{backgroundColor: 'var(--bg-light)', flex: 1}}>
+      <h3>73%</h3>
       <p>High Efficiency/Accuracy</p>
       <small className='small'>Accelerate your prediction accuracy with our prooven model using thousands of data & cutting-edge analytics.</small>
     </div>
@@ -763,13 +653,14 @@ const checkScore = (items) => {
   </div>
 
     <div className='d-flex justify-content-center align-items-center gap-2 flex-wrap mt-4 mb-5'>
-      <button className={`btn small ${mode === 'Today' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Today')}>Upcoming Predictions</button>
+      <button className={`btn small ${mode === 'Today' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Today')}>Upcoming Games</button>
+      <button className={`btn small ${mode === 'History' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('History')}>Your History</button>
       <button className={`btn small ${mode === 'Predictions' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Predictions')}>Past Predictions</button>
-      <button className={`btn small ${mode === 'History' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('History')}>Past Games ({history.length} items)</button>
+      <button className={`btn small ${mode === 'Past' ? 'btnLight' : ''} small px-4 rounded-pill border-0 outline-0`} onClick={() => setMode('Past')}>Past Games ({history.length})</button>
     </div>
 
     <div className='container mb-4 bg-black text-light p-5 betsContainer'>
-      {mode === 'History' ? (
+      {mode === 'Past' ? (
         <div className='history position-relative overflow-x-auto'>
         <div className='w-100 p-2 overflow-x-auto'>
           <table className='w-100 bg-transparent text-light'>
@@ -851,7 +742,7 @@ const checkScore = (items) => {
         </div>
       ) : mode === 'Today' ? (
       <div className='today position-relative overflow-x-auto'>
-        <div className='mb-3 text-center fw-bolder text-success'><p>Upcomng Betika Jackpot Games (This weekend)</p></div>
+        <div className='mb-3 text-center fw-bolder text-success'><p>Upcomng Jackpot Games (This weekend)</p></div>
         <div className='w-100 p-2 overflow-x-auto'>
           <table className='w-100 bg-transparent text-light'>
             <thead className='fw-normal'>
@@ -910,49 +801,8 @@ const checkScore = (items) => {
             <span className='text-info'>Login to see prediction!</span>
           }
         </div>
-
-          { user && predictions && 
-            <div className='history position-relative overflow-x-auto'>
-              <br />
-              <br />
-              <br />
-              <div className='mb-4 text-center fw-bolder text-success'><p>Prediction Results ({(new Date()).toLocaleString()})</p></div>
-              <div className='w-100 p-2 overflow-x-auto'>
-                <table className='w-100 bg-transparent text-light'>
-                  <thead className='fw-normal'>
-                    <tr>
-                      <th>No.</th>
-                      <th>Date To Play</th>
-                      <th>Home Team</th>
-                      <th>Away Team</th>
-                      <th>1 (Home)</th>
-                      <th>X (Draw)</th>
-                      <th>2 (Away)</th>
-                      <th>Prediction</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    { predictions.map((item, index) => (
-                      <tr key={index} className='text-light'>
-                        <td className='py-3 small'>{index+1}.</td>
-                        <td className='py-3 small'>{item.date_to_play}</td>
-                        <td className='py-3 small'>{item.home_team}</td>
-                        <td className='py-3 small'>{item.away_team}</td>
-                        <td className='py-3 small'>{item.home_odds}</td>
-                        <td className='py-3 small'>{item.draw_odds}</td>
-                        <td className='py-3 small'>{item.away_odds}</td>
-                        <td className='py-3 small fw-bold'>{item.prediction === 0 ? '1 (Home Win)' : item.prediction === 1 ? 'X (Draw)' : '2 (Away Win)'}</td>
-                      </tr>
-                    ))
-                    }
-                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          }
       </div>
-      ) : (
+      ) : mode === 'Predictions' ? (
       <div className='predictions position-relative overflow-x-auto'>
           {
             <div className='history position-relative overflow-x-auto'>
@@ -990,6 +840,45 @@ const checkScore = (items) => {
                             item.prediction !== item.outcome ? <i className="bi bi-x-circle text-danger fs-5"></i> : <i className="bi bi-check2-circle fs-4 text-success"></i>
                           }
                         </td>
+                      </tr>
+                    ))
+                    }
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          }
+      </div> ) : (
+      <div className='predictions position-relative overflow-x-auto'>
+          { user && predictions && 
+            <div className='history position-relative overflow-x-auto'>
+              <div className='mb-4 text-center fw-bolder text-success'><p>History - {predictions?.credits || 0} credits ({(new Date(predictions?.date || '07-25-2025')).toLocaleString()})</p></div>
+              <div className='w-100 p-2 overflow-x-auto'>
+                <table className='w-100 bg-transparent text-light'>
+                  <thead className='fw-normal'>
+                    <tr>
+                      <th>No.</th>
+                      <th>Date To Play</th>
+                      <th>Home Team</th>
+                      <th>Away Team</th>
+                      <th>1 (Home)</th>
+                      <th>X (Draw)</th>
+                      <th>2 (Away)</th>
+                      <th>Prediction</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    { predictions.predictions.map((item, index) => (
+                      <tr key={index} className='text-light'>
+                        <td className='py-3 small'>{index+1}.</td>
+                        <td className='py-3 small'>{item.date_to_play}</td>
+                        <td className='py-3 small'>{item.home_team}</td>
+                        <td className='py-3 small'>{item.away_team}</td>
+                        <td className='py-3 small'>{item.home_odds}</td>
+                        <td className='py-3 small'>{item.draw_odds}</td>
+                        <td className='py-3 small'>{item.away_odds}</td>
+                        <td className='py-3 small fw-bold'>{item.prediction === 0 ? '1 (Home Win)' : item.prediction === 1 ? 'X (Draw)' : '2 (Away Win)'}</td>
                       </tr>
                     ))
                     }

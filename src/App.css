@@ -32,6 +32,7 @@
   gap: 2rem;
   div {
     border: none;
+    padding: 1.75rem;
     background-color: var(--bg-light);
   }
   h3 {
