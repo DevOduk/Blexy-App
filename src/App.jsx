@@ -1264,6 +1264,9 @@ function App() {
           </div>
         ) : (
           <div className="predictions position-relative overflow-x-auto">
+            <div className="mb-4 text-center fw-bolder text-success">
+              <p>Prediction History</p>
+            </div>
             {user !== null && predictions.length > 0 ? (
               <div className="history position-relative overflow-x-auto">
                 {
@@ -1271,7 +1274,7 @@ function App() {
                       <React.Fragment key={index}>
                         <div className="mb-4 text-center fw-bolder text-success">
                           <p>
-                            History - {predictions?.credits || 0} credits (
+                            {index + 1}. History - {predictions?.credits || 0} credits (
                             {new Date(
                               predictions?.date || "07-25-2025"
                             ).toLocaleString()}
