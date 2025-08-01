@@ -337,11 +337,11 @@ function App() {
           });
         } else {
           setProcessing(false);
-          popup.error("Unexpected response format from prediction API.");
+          popup.error(data?.message || "Unexpected response format from prediction API.");
         }
       })
       .catch((error) => {
-        popup.error("We are experiency high traffic. Please try again later.");
+        popup.error("We are experiencing high traffic. Please try again later.");
         setProcessing(false);
       });
   };
@@ -602,7 +602,7 @@ function App() {
               <input
                 type="submit"
                 value={processingPayment ? 'Processing payment ...' : "Pay " + buy * 3 + " ksh."}
-                className="form-control mt-4 small"
+                className="form-control mt-4 small text-light"
                 style={{ backgroundColor: "var(--primary-color)" }}
               />
             </form>
