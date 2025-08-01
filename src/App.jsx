@@ -1071,7 +1071,7 @@ function App() {
                     <th>
                       <input
                         type="checkbox"
-                        className="form-check-input bg-secondary"
+                        className="form-check-input"
                         checked={selectAll}
                         onChange={() => {
                           const newSelectAll = !selectAll;
@@ -1096,7 +1096,7 @@ function App() {
                         <td className="py-3 small">
                           <input
                             type="checkbox"
-                            className="form-check-input bg-secondary"
+                            className="form-check-input"
                             checked={selectedIndexes.includes(index)}
                             onChange={() => {
                               setSelectedIndexes(prev => {
@@ -1131,7 +1131,7 @@ function App() {
                       <td className="py-3 small">
                         <input
                           type="checkbox"
-                          className="form-check-input bg-secondary"
+                          className="form-check-input"
                           checked={false}
                           readOnly
                         />
