@@ -1309,7 +1309,7 @@ function App() {
                   </>
                 )
               ) : (
-                <span className="text-info">Login to see prediction!</span>
+                <span className="text-info"><i className="bi bi-person"></i> &nbsp; Login to see prediction!</span>
               )}
             </div>
           </div>
