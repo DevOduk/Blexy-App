@@ -1284,7 +1284,7 @@ function App() {
                             )
                           </p>
                         </div>
-                        <div className="w-100 p-2 overflow-x-auto">
+                        <div className="w-100 p-2 overflow-x-auto mb-4">
                           <table className="w-100 bg-transparent text-light">
                             <thead className="fw-normal">
                               <tr>
