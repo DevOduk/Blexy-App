@@ -322,11 +322,13 @@ function App() {
               }
             ]
           );
-          localStorage.setItem(
-            "predictionHistory",
-            JSON.stringify(predictions)
-          );
-          popup.success("Batch prediction completed successfully!");
+          setTimeout(() => {
+            localStorage.setItem(
+              "predictionHistory",
+              JSON.stringify(predictions)
+            );
+            popup.success("Batch prediction completed successfully!");
+          }, 500);
           setMode("History");
           setProcessing(false);
           setCredits((prev) => {
