@@ -297,13 +297,38 @@ function App() {
   }, []);
 
   const handlePredictBatch = () => {
-    if (credits < today.length) {
-      setOpen(true);
-      return;
-    }
+    // if (credits < today.length) {
+    //   setOpen(true);
+    //   return;
+    // }
 
     setProcessing(true);
-    // post matches to backend API https://carshare-mpesa.vercel.app/api/predict_batch
+
+    fetch(
+        "https://carshare-mpesa.vercel.app/api/add_blexy_user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            name: user.name,
+            credits: credits,
+            used: today.length,
+          }),
+        }
+      )
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "Insufficient credits") {
+        popup.error(data?.message || "An error occured during predictions. Please check your credits and try again!");
+        setProcessing(false);
+        return;
+      }
+      
+      console.log("data received credits check:", data);
+    // post matches to backend API https://carshare-mpesa.vercel.app/api/predict_batch if user credits is enough
     fetch("https://carshare-mpesa.vercel.app/api/predict_batch", {
       method: "POST",
       headers: {
@@ -314,7 +339,6 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Batch prediction response:", data);
         if (data.status === "success" && Array.isArray(data.predictions)) {
           const newEntry = {
             date: new Date(),
@@ -346,6 +370,10 @@ function App() {
         popup.error("We are experiencing high traffic. Please try again later.");
         setProcessing(false);
       });
+    })
+    .catch((error) => {
+      // console.error('Network error while updating user credits:', error);
+    });
   };
 
   const handleUploadHistory = async () => {
@@ -440,7 +468,6 @@ function App() {
           }),
         }
       );
-
       const data = await response.json();
       console.log("data received login signin:", data);
 
@@ -452,14 +479,14 @@ function App() {
           JSON.stringify({ ...user, credits: data.user.credits })
         );
       } else if (data.status === "Welcome to Blexy!") {
-        popup.info("Welcome to Blexy!");
+        popup.info(data.message);
         setCredits(data.user.credits);
         localStorage.setItem(
           "googleUser",
           JSON.stringify({ ...user, credits: data.user.credits })
         );
       } else {
-        // popup.error(`Error creating user: ${data.message}`);
+        popup.error(`Error creating user: ${data.error}`);
         console.error("Error creating user:", data.message);
       }
     } catch (error) {
