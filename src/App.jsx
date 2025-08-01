@@ -1104,6 +1104,7 @@ function App() {
                         type="checkbox"
                         className="form-check-input"
                         checked={selectAll}
+                        disabled={!user}
                         onChange={() => {
                           const newSelectAll = !selectAll;
                           setSelectAll(newSelectAll);
@@ -1128,6 +1129,7 @@ function App() {
                           <input
                             type="checkbox"
                             className="form-check-input"
+                            disabled={!user}
                             checked={selectedIndexes.includes(index)}
                             onChange={() => {
                               setSelectedIndexes(prev => {
