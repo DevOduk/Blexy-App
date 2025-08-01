@@ -186,7 +186,7 @@ function App() {
       outcome: 2,
     },
   ]);
-
+  const [selectAll, setSelectAll] = useState(false);
   const [user, setUser] = useState(null);
   const [mode, setMode] = useState("Today");
   const [processing, setProcessing] = useState(false);
@@ -1027,6 +1027,9 @@ function App() {
                     <th>1 (Home)</th>
                     <th>X (Draw)</th>
                     <th>2 (Away)</th>
+                    <th>
+                      <input type="checkbox" className="form-check-input" checked={selectAll} onChange={() => setSelectAll(!selectAll)} />
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1040,6 +1043,9 @@ function App() {
                         <td className="py-3 small">{item.home_odds}</td>
                         <td className="py-3 small">{item.draw_odds}</td>
                         <td className="py-3 small">{item.away_odds}</td>
+                        <td className="py-3 small">
+                          <input type="checkbox" className="form-check-input" checked={true} />
+                        </td>
                       </tr>
                     ))
                   ) : (
@@ -1168,8 +1174,7 @@ function App() {
                         className="btn small p-2 rounded-pill outline-0 bg-black text-success border-success border"
                         onClick={handlePredictBatch}
                       >
-                        <i className="bi bi-check-circle"></i> &nbsp; See
-                        Predictions
+                        <i className="bi bi-check-circle"></i> &nbsp; See Predictions
                       </button>
                     )}{" "}
                   </>
