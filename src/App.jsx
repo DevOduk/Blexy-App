@@ -314,6 +314,7 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("Batch prediction response:", data);
         if (data.status === "success" && Array.isArray(data.predictions)) {
           const newEntry = {
             date: new Date(),
@@ -485,6 +486,7 @@ function App() {
       );
 
       const data = await response.json();
+      console.log("data received update credits:", data);
 
       if (data.status === "Welcome back!") {
         setCredits(data.user.credits);
