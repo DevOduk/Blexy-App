@@ -138,15 +138,19 @@ nav i {
   margin: 0 1rem;
 }
 .heroSection {
-  padding: 3rem;
+  padding: 4rem 3rem;
   button {
     font-size: .9rem;
   }
   h1 {
-    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
     color: blueviolet;
-    font-weight: 500;
+    font-weight: 600;
     margin: 1rem 0;
+  }
+  p {
+    margin-bottom: 1.5rem;
+    max-width: 900px;
   }
 }
 .btn, .btn:hover {
