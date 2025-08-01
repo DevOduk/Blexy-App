@@ -808,7 +808,7 @@ function App() {
             className="rounded-4"
             style={{ backgroundColor: "var(--bg-light)", flex: 1 }}
           >
-            <h3>97+</h3>
+            <h3>120+</h3>
             <p>Satisfied Users</p>
             <small className="small">
               Over 100 registered individuals trust our predictions. Don'tbe
@@ -830,7 +830,7 @@ function App() {
             className="rounded-4"
             style={{ backgroundColor: "var(--bg-light)", flex: 1 }}
           >
-            <h3>{history.length + 1200}+</h3>
+            <h3>{history.length}+</h3>
             <p>Model Training Data</p>
             <small className="small">
               Our Model is trained with thousands of closely monitored and
@@ -841,7 +841,7 @@ function App() {
             className="rounded-4"
             style={{ backgroundColor: "var(--bg-light)", flex: 1 }}
           >
-            <h3>73%</h3>
+            <h3>78%</h3>
             <p>High Efficiency/Accuracy</p>
             <small className="small">
               Accelerate your prediction accuracy with our prooven model using
