@@ -14,6 +14,7 @@ def parse_date_time(raw_str):
 
 def scrape_and_generate_js():
     url = "https://www.betika.com/en-ke/jackpots/midweekjp"
+    
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -62,7 +63,7 @@ def scrape_and_generate_js():
 
     # Write to a .js file
     with open("jackpot_games.js", "w", encoding="utf-8") as f:
-        f.write("const today = [\n")
+        f.write("const todayMatches = [\n")
         for m in matches:
             f.write("  {\n")
             f.write(f"    date_to_play: '{m['date_to_play']}',\n")
@@ -74,7 +75,7 @@ def scrape_and_generate_js():
             f.write("  },\n")
         f.write("];\n")
         f.write("\n")
-        f.write("export default today\n")
+        f.write("export default todayMatches\n")
 
     print(f"✅ Jackpot data written to jackpot_games.js ({len(matches)} matches)")
 

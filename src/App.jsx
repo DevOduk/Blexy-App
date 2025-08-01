@@ -12,7 +12,7 @@ import { REACT_APP_GOOGLE_CLIENT_ID } from "./assets/_index";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import today from "../jackpot_games";
+import todayMatches from "../jackpot_games";
 
 const style = {
   position: "absolute",
@@ -33,8 +33,8 @@ function App() {
     JSON.parse(localStorage.getItem("predictionHistory")) || []
   );
   const [open, setOpen] = useState(false);
-
-  const [last_predictions, setLast_Predictions] = useState([
+  const [today, setToday] = useState(todayMatches);
+  const [last_predictions, setLastPredictions] = useState([
     {
       date_to_play: "2025-07-26T17:00:00",
       home_team: "Fcv Dender Eh",
@@ -186,10 +186,13 @@ function App() {
       outcome: 2,
     },
   ]);
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [selected, setSelected] = useState([]);
   const [user, setUser] = useState(null);
   const [mode, setMode] = useState("Today");
   const [processing, setProcessing] = useState(false);
+  const [processingPayment, setProcessingPayment] = useState(false);
   const [showAddHistory, setShowAddHistory] = useState(false);
   const [showAddMatch, setShowAddMatch] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -208,7 +211,7 @@ function App() {
     outcome: "",
   });
   const [newMatch, setNewMatch] = useState({
-    date_to_play: "",
+    date_to_play: new Date().toISOString().split('T')[0], // yyyy-mm-dd for input[type="date"]
     home_team: "",
     away_team: "",
     home_odds: Number(""),
@@ -270,9 +273,9 @@ function App() {
       newMatch.draw_odds &&
       newMatch.away_odds
     ) {
-      // setToday([...today, newMatch]);
+      setToday([...today, newMatch]);
       setNewMatch({
-        date_to_play: "",
+        date_to_play: new Date().toISOString().split('T')[0],
         home_team: "",
         away_team: "",
         home_odds: Number(""),
@@ -498,7 +501,7 @@ function App() {
   };
 
   const [phone, setPhone] = useState("");
-  const [buy, setBuy] = useState(20);
+  const [buy, setBuy] = useState(45);
 
   const checkScore = (items) => {
     let score = 0;
@@ -536,16 +539,31 @@ function App() {
         <Fade in={open} className="payment">
           <Box sx={style}>
             <h4 className="fw-bold mb-3">Purchase Credits</h4>
+            <div
+              className="d-flex align-items-center gap-2 text-decoration-none"
+              style={{ color: "blueviolet" }}
+            >
+              <i className="bi bi-cash fs-5"></i>
+              {credits} Credits
+            </div>
             <p className="small">
               Please purchase credit tokens to proceed with predictions!
             </p>
+            {
+              processing ? (
+            <div>
+              <img className="img-fluid" src="/processing.svg" alt="Payment" />
+            </div>
+              ) : (                
             <form
               className=""
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("Processing payment!");
+                setProcessingPayment(true);
               }}
             >
+          { !processingPayment ? (
+            <div>
               <div className="small" style={{ color: "" }}>
                 Enter you phone number
               </div>
@@ -574,13 +592,22 @@ function App() {
                 }
                 className="form-control mb-2 mt-3"
               />
+            </div>
+              ) : (
+                <div>
+                  <img className="img-fluid" src="/processing.svg" alt="Payment" />
+                </div>
+              )
+              }
               <input
                 type="submit"
-                value={"Pay " + buy * 3 + " ksh."}
+                value={processingPayment ? 'Processing payment ...' : "Pay " + buy * 3 + " ksh."}
                 className="form-control mt-4 small"
                 style={{ backgroundColor: "var(--primary-color)" }}
               />
             </form>
+          )
+            }
           </Box>
         </Fade>
       </Modal>
@@ -639,6 +666,7 @@ function App() {
                         <div
                           className="d-flex align-items-center gap-2 text-decoration-none"
                           style={{ color: "blueviolet" }}
+                          onClick={() => setOpen(true)}
                         >
                           <i className="bi bi-cash fs-5"></i>
                           {credits} Credits
@@ -1017,9 +1045,41 @@ function App() {
               <p>Upcomng Jackpot Games (This weekend)</p>
             </div>
             <div className="w-100 p-2 overflow-x-auto">
+              <div>
+                {selectedIndexes.length > 0 && (
+                  <div className="d-flex justify-content-between align-items-center small mb-3 p-2">
+                    <div className="text-light">
+                      {selectedIndexes.length} Selected
+                    </div>
+                    <button
+                      className="btn text-light bg-danger small"
+                      onClick={() => {
+                        setToday(prev => prev.filter((_, i) => !selectedIndexes.includes(i)));
+                        setSelectedIndexes([]);
+                        setSelectAll(false);
+                        popup.success("Selected matches removed successfully!");
+                      }}
+                    >
+                      Remove selected
+                    </button>
+                  </div>
+                )}
+              </div>
               <table className="w-100 bg-transparent text-light">
                 <thead className="fw-normal">
                   <tr>
+                    <th>
+                      <input
+                        type="checkbox"
+                        className="form-check-input bg-transparent"
+                        checked={selectAll}
+                        onChange={() => {
+                          const newSelectAll = !selectAll;
+                          setSelectAll(newSelectAll);
+                          setSelectedIndexes(newSelectAll ? today.map((_, i) => i) : []);
+                        }}
+                      />
+                    </th>
                     <th>No.</th>
                     <th>Date To Play</th>
                     <th>Home Team</th>
@@ -1027,15 +1087,29 @@ function App() {
                     <th>1 (Home)</th>
                     <th>X (Draw)</th>
                     <th>2 (Away)</th>
-                    <th>
-                      <input type="checkbox" className="form-check-input" checked={selectAll} onChange={() => setSelectAll(!selectAll)} />
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {today.length > 0 ? (
                     today.map((item, index) => (
                       <tr key={index} className="text-light">
+                        <td className="py-3 small">
+                          <input
+                            type="checkbox"
+                            className="form-check-input bg-transparent"
+                            checked={selectedIndexes.includes(index)}
+                            onChange={() => {
+                              setSelectedIndexes(prev => {
+                                const isSelected = prev.includes(index);
+                                const updated = isSelected
+                                  ? prev.filter(i => i !== index)
+                                  : [...prev, index];
+                                setSelectAll(updated.length === today.length);
+                                return updated;
+                              });
+                            }}
+                          />
+                        </td>
                         <td className="py-3 small">{index + 1}.</td>
                         <td className="py-3 small">{item.date_to_play}</td>
                         <td className="py-3 small">{item.home_team}</td>
@@ -1043,9 +1117,6 @@ function App() {
                         <td className="py-3 small">{item.home_odds}</td>
                         <td className="py-3 small">{item.draw_odds}</td>
                         <td className="py-3 small">{item.away_odds}</td>
-                        <td className="py-3 small">
-                          <input type="checkbox" className="form-check-input" checked={true} />
-                        </td>
                       </tr>
                     ))
                   ) : (
@@ -1057,6 +1128,14 @@ function App() {
                   )}
                   {showAddMatch && (
                     <tr className="text-light newMatch">
+                      <td className="py-3 small">
+                        <input
+                          type="checkbox"
+                          className="form-check-input bg-transparent"
+                          checked={false}
+                          readOnly
+                        />
+                      </td>
                       <td className="py-3 small">{today.length + 1}.</td>
                       <td className="py-3 small">
                         <input
@@ -1274,7 +1353,7 @@ function App() {
             {user !== null && predictions.length > 0 ? (
               <div className="history position-relative overflow-x-auto">
                 {
-                  predictions.map((predictions, index) => (
+                  predictions.sort((a, b) => new Date(b.date) - new Date(a.date)).map((predictions, index) => (
                       <React.Fragment key={index}>
                         <div className="mb-4 text-center fw-bolder text-success">
                           <p>
@@ -1303,7 +1382,7 @@ function App() {
                               {predictions.predictions.map((item, index) => (
                                 <tr key={index} className="text-light">
                                   <td className="py-3 small">{index + 1}.</td>
-                                  <td className="py-3 small">{item.date_to_play}</td>
+                                  <td className="py-3 small">{new Date(item.date_to_play).toLocaleString()}</td>
                                   <td className="py-3 small">{item.home_team}</td>
                                   <td className="py-3 small">{item.away_team}</td>
                                   <td className="py-3 small">{item.home_odds}</td>
