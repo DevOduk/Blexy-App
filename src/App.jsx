@@ -29,7 +29,7 @@ const style = {
 function App() {
   const [history, setHistory] = useState([]);
   const [predictions, setPredictions] = useState(
-    JSON.parse(localStorage.getItem("predictionHistory")) || null
+    JSON.parse(localStorage.getItem("predictionHistory")) || []
   );
   const [open, setOpen] = useState(false);
 
@@ -1264,7 +1264,7 @@ function App() {
           </div>
         ) : (
           <div className="predictions position-relative overflow-x-auto">
-            {user !== null && predictions !== null ? (
+            {user !== null && predictions.length > 0 ? (
               <div className="history position-relative overflow-x-auto">
                 {
                   predictions.map((predictions, index) => (
