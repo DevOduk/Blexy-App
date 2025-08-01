@@ -1323,7 +1323,7 @@ function App() {
 
               </div>
             ) : (
-              <div className="mb-2 mt-2 text-center fw-semibold text-danger">
+              <div className="mb-2 mt-2 small text-center fw-semibold text-danger">
                 <p>Nothing here!</p>
               </div>
             )}
