@@ -894,7 +894,7 @@ function App() {
                     </tr>
                   )}
 
-                  {showAddHistory && (
+                  {/* {showAddHistory && (
                     <tr className="text-light newMatch">
                       <td className="py-3 small">{history.length + 1}.</td>
                       <td className="py-3 small">
@@ -1014,15 +1014,15 @@ function App() {
                         </select>
                       </td>
                     </tr>
-                  )}
+                  )} */}
 
-                  <tr>
+                {/* <tr>
                   <td colSpan="8" className="text-center py-3">
                     {
                       !showAddHistory ? <> <button style={{ minWidth: '30%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-primary btnLight' onClick={() => setShowAddHistory(true)}><i className="bi bi-plus-lg"></i> &nbsp; Add</button> { history.length > 0 && <button style={{ minWidth: '30%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-success' onClick={handleUploadHistory}><i className="bi bi-check-circle"></i> &nbsp; Upload and Finish</button>} </> : <><button style={{ minWidth: '25%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-success' onClick={() => handleNewHistory()}><i className="bi bi-check2"></i> &nbsp; Save</button> <button style={{ minWidth: '25%' }} className='btn small p-2 rounded-pill border-0 outline-0 bg-black text-danger' onClick={() => setShowAddHistory(false)}><i className="bi bi-x"></i> &nbsp; Cancel</button></>
                     }
                   </td>
-                </tr>
+                </tr> */}
                 </tbody>
               </table>
             </div>
