@@ -1275,7 +1275,7 @@ function App() {
                 {
                   predictions.map((predictions, index) => (
                       <React.Fragment key={index}>
-                        <div className="mb-4 mt-5 text-center fw-bolder text-success">
+                        <div className="mb-4 text-center fw-bolder text-success">
                           <p>
                             {index + 1}. History - {predictions?.credits || 0} credits (
                             {new Date(
