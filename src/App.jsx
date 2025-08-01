@@ -312,26 +312,22 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success" && Array.isArray(data.predictions)) {
-          setPredictions(
-            prev => [
-              ...prev,
-              {
-                date: new Date(),
-                credits: today.length,
-                predictions: data.predictions,
-              }
-            ]
-          );
-          setTimeout(() => {
-            localStorage.setItem(
-              "predictionHistory",
-              JSON.stringify(predictions)
-            );
-            popup.success("Batch prediction completed successfully!");
-          }, 500);
+          const newEntry = {
+            date: new Date(),
+            credits: today.length,
+            predictions: data.predictions,
+          };
+        
+          setPredictions(prev => {
+            const updated = [...prev, newEntry];
+            localStorage.setItem("predictionHistory", JSON.stringify(updated)); // ✅ directly store updated list
+            return updated;
+          });
+        
+          popup.success("Batch prediction completed successfully!");
           setMode("History");
           setProcessing(false);
-          setCredits((prev) => {
+          setCredits(prev => {
             const newCredits = prev - 1;
             updateCredits(user, newCredits);
             return newCredits;
