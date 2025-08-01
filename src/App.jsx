@@ -501,7 +501,7 @@ function App() {
   };
 
   const [phone, setPhone] = useState("");
-  const [buy, setBuy] = useState(45);
+  const [buy, setBuy] = useState(100);
 
   const checkScore = (items) => {
     let score = 0;
@@ -539,16 +539,16 @@ function App() {
         <Fade in={open} className="payment">
           <Box sx={style}>
             <h4 className="fw-bold mb-3">Purchase Credits</h4>
+            <p className="small">
+              Please purchase credit tokens to proceed with predictions!
+            </p>
             <div
-              className="d-flex align-items-center gap-2 text-decoration-none"
+              className="d-flex mb-2 align-items-center gap-2 text-decoration-none"
               style={{ color: "blueviolet" }}
             >
               <i className="bi bi-cash fs-5"></i>
               {credits} Credits
             </div>
-            <p className="small">
-              Please purchase credit tokens to proceed with predictions!
-            </p>
             {
               processing ? (
             <div>
