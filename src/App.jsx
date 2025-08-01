@@ -337,7 +337,8 @@ function App() {
           });
         } else {
           setProcessing(false);
-          popup.error(data?.message || "Unexpected response format from prediction API.");
+          popup.error(data?.message || "Unexpected error. Could not predict batch!");
+
         }
       })
       .catch((error) => {
@@ -494,6 +495,7 @@ function App() {
       } else {
         // popup.error(`Error creating user: ${data.message}`);
         // console.error('Error updating credits:', data.message);
+        popup.error(data?.message || "An error occured during predictions. Please check your credits and try again!");
       }
     } catch (error) {
       // console.error('Network error while updating user credits:', error);
