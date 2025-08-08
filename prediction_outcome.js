@@ -1,0 +1,167 @@
+[
+{
+    "id": 1,
+    "date_played": "2025-08-02T17:00:00",
+    "home_team": "Bradford City",
+    "away_team": "Wycombe",
+    "home_odds": 2.6,
+    "draw_odds": 3.25,
+    "away_odds": 2.75,
+    "prediction": 0,
+    "outcome": 0
+  },
+  {
+    "id": 2,
+    "date_played": "2025-08-02T17:00:00",
+    "home_team": "Rotherham",
+    "away_team": "Port Vale",
+    "home_odds": 2.27,
+    "draw_odds": 3.55,
+    "away_odds": 2.95,
+    "prediction": 0,
+    "outcome": 0
+  },
+  {
+    "id": 3,
+    "date_played": "2025-08-02T17:00:00",
+    "home_team": "Burton",
+    "away_team": "Mansfield",
+    "home_odds": 2.6,
+    "draw_odds": 3.4,
+    "away_odds": 2.65,
+    "prediction": 0,
+    "outcome": 0
+  },
+  {
+    "id": 4,
+    "date_played": "2025-08-02T17:00:00",
+    "home_team": "Wigan",
+    "away_team": "Northampton",
+    "home_odds": 2.04,
+    "draw_odds": 3.25,
+    "away_odds": 3.85,
+    "prediction": 0,
+    "outcome": 0
+  },
+  {
+    "id": 5,
+    "date_played": "2025-08-02T17:00:00",
+    "home_team": "Accrington",
+    "away_team": "Gillingham",
+    "home_odds": 2.48,
+    "draw_odds": 3.1,
+    "away_odds": 2.9,
+    "prediction": 1,
+    "outcome": 1
+  },
+  {
+    "id": 6,
+    "date_played": "2025-08-02T19:00:00",
+    "home_team": "Sarpsborg 08",
+    "away_team": "Sk Brann",
+    "home_odds": 2.44,
+    "draw_odds": 3.7,
+    "away_odds": 2.7,
+    "prediction": 0,
+    "outcome": 2
+  },
+  {
+    "id": 7,
+    "date_played": "2025-08-02T19:15:00",
+    "home_team": "Standard Liege",
+    "away_team": "Fcv Dender Eh",
+    "home_odds": 2.17,
+    "draw_odds": 3.3,
+    "away_odds": 3.5,
+    "prediction": 0,
+    "outcome": 1
+  },
+  {
+    "id": 8,
+    "date_played": "2025-08-02T21:30:00",
+    "home_team": "Bielefeld",
+    "away_team": "Dusseldorf",
+    "home_odds": 2.37,
+    "draw_odds": 3.55,
+    "away_odds": 2.8,
+    "prediction": 0,
+    "outcome": 0
+  },
+  {
+    "id": 9,
+    "date_played": "2025-08-02T22:00:00",
+    "home_team": "Sc Recife Pe",
+    "away_team": "Ec Bahia",
+    "home_odds": 3.1,
+    "draw_odds": 3.1,
+    "away_odds": 2.47,
+    "prediction": 1,
+    "outcome": 1
+  },
+  {
+    "id": 10,
+    "date_played": "2025-08-02T22:15:00",
+    "home_team": "Ca San Lorenzo Almagro",
+    "away_team": "Ca Tigre",
+    "home_odds": 2.75,
+    "draw_odds": 2.49,
+    "away_odds": 3.45,
+    "prediction": 1,
+    "outcome": 2
+  },
+  {
+    "id": 11,
+    "date_played": "2025-08-03T14:30:00",
+    "home_team": "Greuther Furth",
+    "away_team": "Dynamo Dresden",
+    "home_odds": 2.4,
+    "draw_odds": 3.55,
+    "away_odds": 2.75,
+    "prediction": 1,
+    "outcome": 0
+  },
+  {
+    "id": 12,
+    "date_played": "2025-08-03T17:00:00",
+    "home_team": "Cercle Brugge",
+    "away_team": "Rsc Anderlecht",
+    "home_odds": 2.95,
+    "draw_odds": 3.35,
+    "away_odds": 2.43,
+    "prediction": 0,
+    "outcome": 2
+  },
+  {
+    "id": 13,
+    "date_played": "2025-08-03T17:30:00",
+    "home_team": "Fc Sion",
+    "away_team": "Fc Lugano",
+    "home_odds": 2.55,
+    "draw_odds": 3.4,
+    "away_odds": 2.6,
+    "prediction": 0,
+    "outcome": 0
+  },
+  {
+    "id": 14,
+    "date_played": "2025-08-03T18:00:00",
+    "home_team": "Kfum Oslo",
+    "away_team": "Rosenborg Bk",
+    "home_odds": 2.39,
+    "draw_odds": 3.45,
+    "away_odds": 2.95,
+    "prediction": 2,
+    "outcome": 0
+  },
+  {
+    "id": 15,
+    "date_played": "2025-08-03T22:00:00",
+    "home_team": "Botafogo Rj",
+    "away_team": "Cruzeiro Ec",
+    "home_odds": 2.2,
+    "draw_odds": 3.15,
+    "away_odds": 3.6,
+    "prediction": 0,
+    "outcome": 2
+  }
+]
